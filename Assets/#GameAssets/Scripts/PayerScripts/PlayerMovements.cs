@@ -127,9 +127,9 @@ public class PlayerMovements : MonoBehaviour
         Vector3 l_positionToMove;
 
         l_positionToMove = GridManager.GetGridPosition(a_row, a_column);
-
         if(l_positionToMove != Vector3.zero)
         {
+            l_positionToMove.y = transform.position.y;
             transform.position = l_positionToMove;
             return true;
         }
