@@ -11,6 +11,22 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     Vector3[,] m_centerPositionsOfCells;
 
+    public static Vector2 SizeOfTheGrid
+    {
+        get 
+        {
+            return Instance.m_sizeOfTheGrid;
+        }
+    }
+
+    public static Vector3[,] CenterPositionOfTheGrid
+    {
+        get
+        {
+            return Instance.m_centerPositionsOfCells;
+        }
+    }
+
     private void Awake()
     {
         if (Instance == null)
