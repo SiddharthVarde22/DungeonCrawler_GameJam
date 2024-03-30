@@ -135,6 +135,7 @@ public class PlayerMovements : MonoBehaviour
         {
             l_positionToMove.y = transform.position.y;
             transform.position = l_positionToMove;
+            TurnManager.OnPlayerTurnComplete();
             return true;
         }
 

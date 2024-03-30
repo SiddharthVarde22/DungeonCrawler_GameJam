@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
+            InputManager.AllowToTakeInput(false);
         }
         else
         {
@@ -27,7 +28,17 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        if(m_isInCombat)
+        if (Input.GetKeyDown(m_rightKey))
+        {
+            OnRightPressed();
+        }
+
+        if (Input.GetKeyDown(m_leftKey))
+        {
+            OnLeftPressed();
+        }
+
+        if (m_isInCombat)
         {
             return;
         }
@@ -40,16 +51,6 @@ public class InputManager : MonoBehaviour
         if(Input.GetKeyDown(m_backKey))
         {
             OnBackPressed();
-        }
-
-        if(Input.GetKeyDown(m_rightKey))
-        {
-            OnRightPressed();
-        }
-
-        if(Input.GetKeyDown(m_leftKey))
-        {
-            OnLeftPressed();
         }
     }
 
@@ -67,5 +68,10 @@ public class InputManager : MonoBehaviour
         Instance.OnBackPressed -= a_back;
         Instance.OnRightPressed -= a_right;
         Instance.OnLeftPressed -= a_left;
+    }
+
+    public static void AllowToTakeInput(bool a_allowedToMove)
+    {
+        Instance.enabled = a_allowedToMove;
     }
 }

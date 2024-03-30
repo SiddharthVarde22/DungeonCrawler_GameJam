@@ -37,11 +37,16 @@ public class EnemyBehaviour : MonoBehaviour
         CheckIfNearPlayer();
     }
 
-    private void CheckIfNearPlayer()
+    public void CheckIfNearPlayer()
     {
         Vector2 l_playerGridPos = m_playerMovementRefrence.GridLocation;
-        if ((m_gridPosition.x == l_playerGridPos.x + 1 || m_gridPosition.x == l_playerGridPos.x - 1) &&
-            (m_gridPosition.y == l_playerGridPos.y + 1 || m_gridPosition.y == l_playerGridPos.y - 1))
+        if ((m_gridPosition.x == l_playerGridPos.x + 1 || m_gridPosition.x == l_playerGridPos.x - 1)
+            && (m_gridPosition.y == l_playerGridPos.y))
+        {
+            GetInCombat();
+        }
+        else if((m_gridPosition.y == l_playerGridPos.y + 1 || m_gridPosition.y == l_playerGridPos.y - 1)
+            && m_gridPosition.x == l_playerGridPos.x)
         {
             GetInCombat();
         }
@@ -87,21 +92,25 @@ public class EnemyBehaviour : MonoBehaviour
                 {
                     if(l_direction.y > 0)
                     {
-                        l_column = (int)l_direction.y + 1;
+                        l_column = (int)m_gridPosition.y + 1;
                     }
                     else
                     {
-                        l_column = (int)l_direction.y - 1;
+                        l_column = (int)m_gridPosition.y - 1;
                     }
 
                 }
 
                 ChangePosition(l_row, l_column);
+                //inform turn manager
+                TurnManager.OnEnemyTurnComplete();
                 break;
 
             case EEnemyState.attack:
                 float l_attackPow = Random.Range(m_minAttackPower, m_maxAttackPower);
                 m_playerReference.GetDamage(l_attackPow);
+                //inform turn manager
+                TurnManager.OnEnemyTurnComplete();
                 break;
         }
     }

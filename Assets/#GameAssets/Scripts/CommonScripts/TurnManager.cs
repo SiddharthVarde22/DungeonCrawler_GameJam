@@ -10,9 +10,11 @@ public class TurnManager : MonoBehaviour
     PlayerMovements m_playerMovementsRef;
     [SerializeField]
     EnemyBehaviour m_enemyPrefabToCreate;
+    [SerializeField]
+    PlayerBehavior m_playerBehavior;
 
     int m_numberOfEnemies;
-    List<EnemyBehaviour> enemies = new List<EnemyBehaviour>();
+    List<EnemyBehaviour> m_enemies = new List<EnemyBehaviour>();
     EnemyBehaviour m_currentlyFightingEnemy = null;
     int m_indexOfEnemyTakingturn;
 
@@ -43,11 +45,13 @@ public class TurnManager : MonoBehaviour
             int l_gridPosY = (int)Random.Range(1f, l_gridSize.y);
 
             l_enemy.Init(l_gridPosX, l_gridPosY, m_playerMovementsRef);
-            enemies.Add(l_enemy);
+            m_enemies.Add(l_enemy);
         }
 
         m_indexOfEnemyTakingturn = 0;
-        m_currentlyFightingEnemy = enemies[m_indexOfEnemyTakingturn];
+        m_currentlyFightingEnemy = m_enemies[m_indexOfEnemyTakingturn];
+
+        GiveTurn_Player();
     }
 
     public static EnemyBehaviour CurrentTurnEnemy
@@ -57,8 +61,32 @@ public class TurnManager : MonoBehaviour
 
     public static void EnemyDied(EnemyBehaviour a_enemyThatDied)
     {
-        Instance.enemies.Remove(a_enemyThatDied);
+        Instance.m_enemies.Remove(a_enemyThatDied);
         Destroy(a_enemyThatDied.gameObject);
         Instance.m_numberOfEnemies--;
+    }
+
+    public static void GiveTurn_Player()
+    {
+        InputManager.AllowToTakeInput(true);
+        for(int i = 0; i < Instance.m_enemies.Count; i++)
+        {
+            Instance.m_enemies[i].CheckIfNearPlayer();
+        }
+        Instance.m_playerBehavior.TakeTurn();
+    }
+
+    public static void OnPlayerTurnComplete()
+    {
+        InputManager.AllowToTakeInput(false);
+        Instance.m_currentlyFightingEnemy.TakeTurn();
+    }
+
+    public static void OnEnemyTurnComplete()
+    {
+        Instance.m_indexOfEnemyTakingturn++;
+        Instance.m_indexOfEnemyTakingturn %= Instance.m_numberOfEnemies;
+        Instance.m_currentlyFightingEnemy = Instance.m_enemies[Instance.m_indexOfEnemyTakingturn];
+        GiveTurn_Player();
     }
 }

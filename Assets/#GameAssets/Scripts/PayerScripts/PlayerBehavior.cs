@@ -24,6 +24,8 @@ public class PlayerBehavior : MonoBehaviour
         float l_damage = Random.Range(m_minAttackPower, m_maxAttackPower);
         // damage enemy
         TurnManager.CurrentTurnEnemy.TakeDamage(l_damage);
+        //inform turn manager
+        TurnManager.OnPlayerTurnComplete();
     }
 
     public void Heal()
@@ -37,5 +39,13 @@ public class PlayerBehavior : MonoBehaviour
         }
 
         //update UI
+        //inform turn manager
+        TurnManager.OnPlayerTurnComplete();
+    }
+
+    public void TakeTurn()
+    {
+        // activate combat ui if in combat
+        // Else activate movement ui
     }
 }

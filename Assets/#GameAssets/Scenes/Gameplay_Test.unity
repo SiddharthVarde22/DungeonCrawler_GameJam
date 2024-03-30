@@ -751,6 +751,7 @@ MonoBehaviour:
   m_maxEnemies: 3
   m_playerMovementsRef: {fileID: 1446830108}
   m_enemyPrefabToCreate: {fileID: 1853591294, guid: ec8606e52c3bcfa468f3c9ef90e66c52, type: 3}
+  m_playerBehavior: {fileID: 1446830109}
 --- !u!1 &1298886849
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,6 +1052,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 327ad0638956c844890fed1256addba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1446830109 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2501580775033940155, guid: 0028185c7b2ab5746824cc823081c847, type: 3}
+  m_PrefabInstance: {fileID: 1512983882263608786}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a554a078de461544989e28904fa580f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1755329573
