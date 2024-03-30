@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    private bool m_isInCombat = false;
     private static InputManager Instance { get; set; }
+    public static bool IsInCombat { get => Instance.m_isInCombat; set => Instance.m_isInCombat = value; }
 
     [SerializeField]
     KeyCode m_forwardKey = KeyCode.W, m_backKey = KeyCode.S, m_rightKey = KeyCode.D, m_leftKey = KeyCode.A;
@@ -25,6 +27,11 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+        if(m_isInCombat)
+        {
+            return;
+        }
+
         if(Input.GetKeyDown(m_forwardKey))
         {
             OnForwardPressed();

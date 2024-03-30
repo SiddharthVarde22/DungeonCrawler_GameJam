@@ -13,11 +13,15 @@ public enum EDirection
 public class PlayerMovements : MonoBehaviour
 {
     EDirection m_direction = EDirection.forward;
-    int m_row = 0, m_column = 0;
+    //int m_row = 0, m_column = 0;
+    Vector2 m_gridLocation = Vector2.zero;
+
+    public Vector2 GridLocation { get => m_gridLocation; }
+
     void Start()
     {
         InputManager.SubscribeToOnKeyPressedEvent(OnForwardPressed, OnBackPressed, onRightPressed, OnLeftPressed);
-        if(!MoveToPosition(m_row, m_column))
+        if(!MoveToPosition((int)m_gridLocation.x, (int)m_gridLocation.y))
         {
             Debug.LogError("Somthing went wrong");
         }
@@ -31,35 +35,35 @@ public class PlayerMovements : MonoBehaviour
 
     public void OnForwardPressed()
     {
-        int l_row = m_row, l_column= m_column;
+        int l_row = (int)m_gridLocation.x, l_column= (int)m_gridLocation.y;
         switch(m_direction)
         {
             case EDirection.forward:
                 l_row++;
                 if(MoveToPosition(l_row, l_column))
                 {
-                    m_row = l_row;
+                    m_gridLocation.x = l_row;
                 }
                 break;
             case EDirection.right:
                 l_column++;
                 if (MoveToPosition(l_row, l_column))
                 {
-                    m_column = l_column;
+                    m_gridLocation.y = l_column;
                 }
                 break;
             case EDirection.back:
                 l_row--;
                 if (MoveToPosition(l_row, l_column))
                 {
-                    m_row = l_row;
+                    m_gridLocation.x = l_row;
                 }
                 break;
             case EDirection.left:
                 l_column--;
                 if (MoveToPosition(l_row, l_column))
                 {
-                    m_column = l_column;
+                    m_gridLocation.y = l_column;
                 }
                 break;
         }
@@ -67,35 +71,35 @@ public class PlayerMovements : MonoBehaviour
 
     public void OnBackPressed()
     {
-        int l_row = m_row, l_column = m_column;
+        int l_row = (int)m_gridLocation.x, l_column = (int)m_gridLocation.y;
         switch (m_direction)
         {
             case EDirection.forward:
                 l_row--;
                 if (MoveToPosition(l_row, l_column))
                 {
-                    m_row = l_row;
+                    m_gridLocation.x = l_row;
                 }
                 break;
             case EDirection.right:
                 l_column--;
                 if (MoveToPosition(l_row, l_column))
                 {
-                    m_column = l_column;
+                    m_gridLocation.y = l_column;
                 }
                 break;
             case EDirection.back:
                 l_row++;
                 if (MoveToPosition(l_row, l_column))
                 {
-                    m_row = l_row;
+                    m_gridLocation.x = l_row;
                 }
                 break;
             case EDirection.left:
                 l_column++;
                 if (MoveToPosition(l_row, l_column))
                 {
-                    m_column = l_column;
+                    m_gridLocation.y = l_column;
                 }
                 break;
         }
